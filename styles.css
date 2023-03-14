@@ -3,7 +3,7 @@
 }
 
 html {
-  font-family: "Jost", sans-serif;
+  font-family: "Source Code Pro", sans-serif;
 }
 
 body {
@@ -65,7 +65,7 @@ button {
   border: 1px solid #88005b;
   background-color: #9b4d81;
   color: white;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   border-radius: 12px;
   margin: 1rem;
   width: 12rem;
