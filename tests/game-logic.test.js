@@ -40,9 +40,7 @@ describe("GAME_CONFIG", () => {
   });
 
   it("has positive values for all settings", () => {
-    Object.values(GAME_CONFIG).forEach((value) =>
-      expect(value).toBeGreaterThan(0)
-    );
+    Object.values(GAME_CONFIG).forEach((value) => expect(value).toBeGreaterThan(0));
   });
 
   it("special attack deals more maximum damage than a normal attack", () => {

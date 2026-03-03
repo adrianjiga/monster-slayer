@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -71,7 +71,8 @@
                 'log--player': logMessage.actionBy === 'player',
                 'log--monster': logMessage.actionBy === 'monster'
               }"
-            >{{ getActorLabel(logMessage.actionBy) }}</span>
+              >{{ getActorLabel(logMessage.actionBy) }}</span
+            >
             <template v-if="logMessage.actionType === 'heal'">
               heals for
               <span class="log--heal">{{ logMessage.actionValue }}</span>

@@ -87,10 +87,7 @@ const app = Vue.createApp({
     healPlayer() {
       this.takeTurn(() => {
         const healValue = getRandomValue(GAME_CONFIG.HEAL_MIN, GAME_CONFIG.HEAL_MAX);
-        this.playerHealth = Math.min(
-          GAME_CONFIG.MAX_HEALTH,
-          this.playerHealth + healValue
-        );
+        this.playerHealth = Math.min(GAME_CONFIG.MAX_HEALTH, this.playerHealth + healValue);
         this.addLogMessage(GAME_ACTORS.PLAYER, ACTION_TYPES.HEAL, healValue);
       });
     },
