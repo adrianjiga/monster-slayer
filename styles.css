@@ -7,13 +7,14 @@
   --color-health-bar-fill: #00a876;
   --color-player: #7700ff;
   --color-monster: #da8d00;
-  --color-damage: red;
-  --color-heal: green;
+  --color-damage: #ff0000;
+  --color-heal: #008000;
   --color-disabled-bg: #ccc;
   --color-disabled-text: #3f3f3f;
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.26);
-  --shadow-btn: 1px 1px 4px rgba(0, 0, 0, 0.26);
-  --shadow-btn-hover: 1px 1px 8px rgba(0, 0, 0, 0.26);
+  --shadow-color: rgba(0, 0, 0, 0.26);
+  --shadow-card: 0 2px 8px var(--shadow-color);
+  --shadow-btn: 1px 1px 4px var(--shadow-color);
+  --shadow-btn-hover: 1px 1px 8px var(--shadow-color);
   --radius: 12px;
 }
 
