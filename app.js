@@ -74,14 +74,14 @@ const app = Vue.createApp({
       playerAction();
       this.attackPlayer();
     },
+    performPlayerAttack(min, max) {
+      const attackDamage = getRandomValue(min, max);
+      this.monsterHealth -= attackDamage;
+      this.addLogMessage("player", "attack", attackDamage);
+    },
     attackMonster() {
       this.takeTurn(() => {
-        const attackDamage = getRandomValue(
-          GAME_CONFIG.PLAYER_ATTACK_MIN,
-          GAME_CONFIG.PLAYER_ATTACK_MAX
-        );
-        this.monsterHealth -= attackDamage;
-        this.addLogMessage("player", "attack", attackDamage);
+        this.performPlayerAttack(GAME_CONFIG.PLAYER_ATTACK_MIN, GAME_CONFIG.PLAYER_ATTACK_MAX);
       });
     },
     attackPlayer() {
@@ -94,12 +94,7 @@ const app = Vue.createApp({
     },
     specialAttackMonster() {
       this.takeTurn(() => {
-        const attackDamage = getRandomValue(
-          GAME_CONFIG.SPECIAL_ATTACK_MIN,
-          GAME_CONFIG.SPECIAL_ATTACK_MAX
-        );
-        this.monsterHealth -= attackDamage;
-        this.addLogMessage("player", "attack", attackDamage);
+        this.performPlayerAttack(GAME_CONFIG.SPECIAL_ATTACK_MIN, GAME_CONFIG.SPECIAL_ATTACK_MAX);
       });
     },
     healPlayer() {
