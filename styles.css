@@ -1,3 +1,23 @@
+:root {
+  --color-primary: #b5233b;
+  --color-secondary: #9b4d81;
+  --color-secondary-border: #88005b;
+  --color-secondary-hover: #af0a78;
+  --color-health-bar-bg: #fde5e5;
+  --color-health-bar-fill: #00a876;
+  --color-player: #7700ff;
+  --color-monster: #da8d00;
+  --color-damage: #ff0000;
+  --color-heal: #008000;
+  --color-disabled-bg: #ccc;
+  --color-disabled-text: #3f3f3f;
+  --shadow-color: rgba(0, 0, 0, 0.26);
+  --shadow-card: 0 2px 8px var(--shadow-color);
+  --shadow-btn: 1px 1px 4px var(--shadow-color);
+  --shadow-btn-hover: 1px 1px 8px var(--shadow-color);
+  --radius: 12px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,9 +31,9 @@ body {
 }
 
 header {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  box-shadow: var(--shadow-card);
   padding: 0.5rem;
-  background-color: #b5233b;
+  background-color: var(--color-primary);
   color: white;
   text-align: center;
   margin-bottom: 2rem;
@@ -30,11 +50,11 @@ section {
   height: 40px;
   border: 1px solid #575757;
   margin: 1rem 0;
-  background: #fde5e5;
+  background: var(--color-health-bar-bg);
 }
 
 .healthbar__value {
-  background-color: #00a876;
+  background-color: var(--color-health-bar-fill);
   width: 100%;
   height: 100%;
 }
@@ -43,12 +63,11 @@ section {
   text-align: center;
   padding: 0.5rem;
   margin: 1rem auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius);
 }
 
-#monster h2,
-#player h2 {
+.health-label {
   margin: 0.25rem;
 }
 
@@ -62,33 +81,38 @@ section {
 
 button {
   font: inherit;
-  border: 1px solid #88005b;
-  background-color: #9b4d81;
+  border: 1px solid var(--color-secondary-border);
+  background-color: var(--color-secondary);
   color: white;
-  padding: 1rem 1rem;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: var(--radius);
   margin: 1rem;
   width: 12rem;
   cursor: pointer;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+  box-shadow: var(--shadow-btn);
 }
 
 button:focus {
+  outline: 2px solid var(--color-secondary-border);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
   outline: none;
 }
 
 button:hover,
 button:active {
-  background-color: #af0a78;
-  border-color: #af0a78;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 button:disabled {
-  background-color: #ccc;
-  border-color: #ccc;
+  background-color: var(--color-disabled-bg);
+  border-color: var(--color-disabled-bg);
   box-shadow: none;
-  color: #3f3f3f;
+  color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 
@@ -103,17 +127,17 @@ button:disabled {
 }
 
 .log--player {
-  color: #7700ff;
+  color: var(--color-player);
 }
 
 .log--monster {
-  color: #da8d00;
+  color: var(--color-monster);
 }
 
 .log--damage {
-  color: red;
+  color: var(--color-damage);
 }
 
 .log--heal {
-  color: green;
+  color: var(--color-heal);
 }
