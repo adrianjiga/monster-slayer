@@ -1,0 +1,13 @@
+{
+  "name": "monster-slayer",
+  "version": "1.0.0",
+  "description": "Monster Slayer - a Vue 3 browser game",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0"
+  }
+}
