@@ -1,35 +1,14 @@
-const GAME_CONFIG = {
-  PLAYER_ATTACK_MIN: 5,
-  PLAYER_ATTACK_MAX: 12,
-  MONSTER_ATTACK_MIN: 8,
-  MONSTER_ATTACK_MAX: 13,
-  SPECIAL_ATTACK_MIN: 10,
-  SPECIAL_ATTACK_MAX: 25,
-  HEAL_MIN: 8,
-  HEAL_MAX: 20,
-  MAX_HEALTH: 100,
-  SPECIAL_ATTACK_INTERVAL: 3,
-};
-
-const GAME_ACTORS = {
-  PLAYER: "player",
-  MONSTER: "monster",
-};
-
-const ACTION_TYPES = {
-  ATTACK: "attack",
-  HEAL: "heal",
-};
-
-const GAME_OUTCOMES = {
-  PLAYER: "player",
-  MONSTER: "monster",
-  DRAW: "draw",
-};
-
-function getRandomValue(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+import {
+  GAME_CONFIG,
+  GAME_ACTORS,
+  ACTION_TYPES,
+  GAME_OUTCOMES,
+  getRandomValue,
+  healthBarStyle,
+  getActorLabel,
+  shouldDisableSpecialAttack,
+  determineWinner,
+} from "./game-logic.js";
 
 const app = Vue.createApp({
   data() {
@@ -44,13 +23,13 @@ const app = Vue.createApp({
   },
   computed: {
     monsterBarStyles() {
-      return this.healthBarStyle(this.monsterHealth);
+      return healthBarStyle(this.monsterHealth);
     },
     playerBarStyles() {
-      return this.healthBarStyle(this.playerHealth);
+      return healthBarStyle(this.playerHealth);
     },
     isSpecialAttackDisabled() {
-      return this.currentRound % GAME_CONFIG.SPECIAL_ATTACK_INTERVAL !== 0;
+      return shouldDisableSpecialAttack(this.currentRound);
     },
     maxHealth() {
       return GAME_CONFIG.MAX_HEALTH;
@@ -65,17 +44,9 @@ const app = Vue.createApp({
     },
   },
   methods: {
-    healthBarStyle(health) {
-      return { width: Math.max(0, health) + "%" };
-    },
     checkWinner() {
-      if (this.playerHealth <= 0 && this.monsterHealth <= 0) {
-        this.winner = GAME_OUTCOMES.DRAW;
-      } else if (this.playerHealth <= 0) {
-        this.winner = GAME_OUTCOMES.MONSTER;
-      } else if (this.monsterHealth <= 0) {
-        this.winner = GAME_OUTCOMES.PLAYER;
-      }
+      const result = determineWinner(this.playerHealth, this.monsterHealth);
+      if (result) this.winner = result;
     },
     startGame() {
       this.playerHealth = GAME_CONFIG.MAX_HEALTH;
@@ -127,7 +98,7 @@ const app = Vue.createApp({
       this.winner = GAME_OUTCOMES.MONSTER;
     },
     getActorLabel(actor) {
-      return actor === GAME_ACTORS.PLAYER ? "Player" : "Monster";
+      return getActorLabel(actor);
     },
     addLogMessage(player, action, value) {
       this.logMessages.unshift({
