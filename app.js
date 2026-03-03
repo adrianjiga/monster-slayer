@@ -11,6 +11,22 @@ const GAME_CONFIG = {
   SPECIAL_ATTACK_INTERVAL: 3,
 };
 
+const GAME_ACTORS = {
+  PLAYER: "player",
+  MONSTER: "monster",
+};
+
+const ACTION_TYPES = {
+  ATTACK: "attack",
+  HEAL: "heal",
+};
+
+const GAME_OUTCOMES = {
+  PLAYER: "player",
+  MONSTER: "monster",
+  DRAW: "draw",
+};
+
 function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -54,11 +70,11 @@ const app = Vue.createApp({
     },
     checkWinner() {
       if (this.playerHealth <= 0 && this.monsterHealth <= 0) {
-        this.winner = "draw";
+        this.winner = GAME_OUTCOMES.DRAW;
       } else if (this.playerHealth <= 0) {
-        this.winner = "monster";
+        this.winner = GAME_OUTCOMES.MONSTER;
       } else if (this.monsterHealth <= 0) {
-        this.winner = "player";
+        this.winner = GAME_OUTCOMES.PLAYER;
       }
     },
     startGame() {
@@ -77,7 +93,7 @@ const app = Vue.createApp({
     performPlayerAttack(min, max) {
       const attackDamage = getRandomValue(min, max);
       this.monsterHealth -= attackDamage;
-      this.addLogMessage("player", "attack", attackDamage);
+      this.addLogMessage(GAME_ACTORS.PLAYER, ACTION_TYPES.ATTACK, attackDamage);
     },
     attackMonster() {
       this.takeTurn(() => {
@@ -90,7 +106,7 @@ const app = Vue.createApp({
         GAME_CONFIG.MONSTER_ATTACK_MAX
       );
       this.playerHealth -= attackDamage;
-      this.addLogMessage("monster", "attack", attackDamage);
+      this.addLogMessage(GAME_ACTORS.MONSTER, ACTION_TYPES.ATTACK, attackDamage);
     },
     specialAttackMonster() {
       this.takeTurn(() => {
@@ -104,11 +120,11 @@ const app = Vue.createApp({
           GAME_CONFIG.MAX_HEALTH,
           this.playerHealth + healValue
         );
-        this.addLogMessage("player", "heal", healValue);
+        this.addLogMessage(GAME_ACTORS.PLAYER, ACTION_TYPES.HEAL, healValue);
       });
     },
     surrender() {
-      this.winner = "monster";
+      this.winner = GAME_OUTCOMES.MONSTER;
     },
     addLogMessage(player, action, value) {
       this.logMessages.unshift({
