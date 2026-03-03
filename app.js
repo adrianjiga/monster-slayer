@@ -49,7 +49,7 @@ const app = Vue.createApp({
     playerBarStyles() {
       return this.healthBarStyle(this.playerHealth);
     },
-    mayUseSpecialAttack() {
+    isSpecialAttackDisabled() {
       return this.currentRound % GAME_CONFIG.SPECIAL_ATTACK_INTERVAL !== 0;
     },
     maxHealth() {
@@ -125,6 +125,9 @@ const app = Vue.createApp({
     },
     surrender() {
       this.winner = GAME_OUTCOMES.MONSTER;
+    },
+    getActorLabel(actor) {
+      return actor === GAME_ACTORS.PLAYER ? "Player" : "Monster";
     },
     addLogMessage(player, action, value) {
       this.logMessages.unshift({

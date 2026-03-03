@@ -56,7 +56,7 @@
       </section>
       <section id="controls" v-else>
         <button @click="attackMonster">ATTACK</button>
-        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
+        <button :disabled="isSpecialAttackDisabled" @click="specialAttackMonster">
           SPECIAL ATTACK
         </button>
         <button @click="healPlayer">HEAL</button>
@@ -71,7 +71,7 @@
                 'log--player': logMessage.actionBy === 'player',
                 'log--monster': logMessage.actionBy === 'monster'
               }"
-            >{{ logMessage.actionBy === 'player' ? 'Player' : 'Monster' }}</span>
+            >{{ getActorLabel(logMessage.actionBy) }}</span>
             <template v-if="logMessage.actionType === 'heal'">
               heals for
               <span class="log--heal">{{ logMessage.actionValue }}</span>
