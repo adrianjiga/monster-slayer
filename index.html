@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue Basics</title>
+    <title>Monster Slayer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,15 +20,31 @@
     </header>
     <div id="game">
       <section id="monster" class="container">
-        <h2>Monster Health</h2>
+        <h2 class="health-label">Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="monsterBarStyles"></div>
+          <div
+            class="healthbar__value"
+            :style="monsterBarStyles"
+            role="progressbar"
+            :aria-valuenow="monsterHealth"
+            aria-valuemin="0"
+            :aria-valuemax="maxHealth"
+            aria-label="Monster health"
+          ></div>
         </div>
       </section>
       <section id="player" class="container">
-        <h2>Your Health</h2>
+        <h2 class="health-label">Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="playerBarStyles"></div>
+          <div
+            class="healthbar__value"
+            :style="playerBarStyles"
+            role="progressbar"
+            :aria-valuenow="playerHealth"
+            aria-valuemin="0"
+            :aria-valuemax="maxHealth"
+            aria-label="Player health"
+          ></div>
         </div>
       </section>
       <section class="container" v-if="winner">
@@ -38,9 +54,9 @@
         <h3 v-else>It's a draw!</h3>
         <button @click="startGame">Start New Game</button>
       </section>
-      <section id="controls" v-else="!winner">
+      <section id="controls" v-else>
         <button @click="attackMonster">ATTACK</button>
-        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster()">
+        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
           SPECIAL ATTACK
         </button>
         <button @click="healPlayer">HEAL</button>
@@ -48,22 +64,22 @@
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul>
-          <li v-for="logMessage in logMessages">
+        <ul aria-live="polite" aria-atomic="false" aria-relevant="additions">
+          <li v-for="logMessage in logMessages" :key="logMessage.id">
             <span
-              :class="{'log--player': logMessage.actionBy === 'player', 'log--monster': logMessage.actionBy === 'monster'}"
-              >{{ logMessage.actionBy === 'player' ? 'Player' : 'Monster' }}
-            </span>
-            <span v-if="logMessage.actionType === 'heal'">
-              heals himself for
+              :class="{
+                'log--player': logMessage.actionBy === 'player',
+                'log--monster': logMessage.actionBy === 'monster'
+              }"
+            >{{ logMessage.actionBy === 'player' ? 'Player' : 'Monster' }}</span>
+            <template v-if="logMessage.actionType === 'heal'">
+              heals for
               <span class="log--heal">{{ logMessage.actionValue }}</span>
-            </span>
-            <span v-else>
+            </template>
+            <template v-else>
               attacks and deals
-              <span class="log--damage"
-                >{{ logMessage.actionValue }}</span
-              ></span
-            >
+              <span class="log--damage">{{ logMessage.actionValue }}</span>
+            </template>
           </li>
         </ul>
       </section>
