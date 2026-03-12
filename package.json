@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.0.2",
+    "eslint": "^10.0.3",
     "prettier": "^3.8.1",
     "vitest": "^4.0.0"
   }
